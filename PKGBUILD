@@ -1,20 +1,19 @@
 pkgname=amos-netlib
-_pkgname="amos-netlib"
 pkgrel=1
 pkgdesc="Fortran library for Bessel Functions of a Complex Argument and Nonnegative Order"
 arch=('any')
-url="https://github.com/denshion/amos-makepkg"
+url="http://www.netlib.org/amos/"
 license=('GPL')
 makedepends=('git' 'gcc-fortran')
 depends=()
-provides=('amos-netlib')
+provides=()
 conflicts=()
 backup=()
 source=('http://www.netlib.org/amos/amos.tgz')
 md5sums=('SKIP')
 epoch=1
 pkgver=1998.07.21
-_programs=( 'cqcai.f' 'cqcbh.f' 'cqcbi.f' 'cqcbj.f' 'cqcbk.f' 'cqcby.f'
+_test_programs=( 'cqcai.f' 'cqcbh.f' 'cqcbi.f' 'cqcbj.f' 'cqcbk.f' 'cqcby.f'
 'zqcai.f' 'zqcbh.f' 'zqcbi.f' 'zqcbj.f' 'zqcbk.f' 'zqcby.f')
 _functions=( 'cacai.f' 'cacon.f' 'cairy.f' 'casyi.f' 'cbesh.f' 'cbesi.f'
 'cbesj.f' 'cbesk.f' 'cbesy.f' 'cbinu.f' 'cbiry.f' 'cbknu.f' 'cbuni.f' 'cbunk.f'
@@ -35,8 +34,8 @@ build() {
   cd $srcdir/amos/
   # Compliation flags:
   # -c for static linking;
-  # -std=f95 - the oldest standart after Fortran77; this is required to mask
-  # the GNU extensions, particulary, the ZABS intrinsic
+  # -std=legacy - for Fortran77;
+  # -ffixed-form - Fortran77-styled Fixed Form layout
   # -O3 - optimization
   gfortran -c -std=legacy -ffixed-form -Wall -O3 ${_functions}
   ar r libamos.a *.o
